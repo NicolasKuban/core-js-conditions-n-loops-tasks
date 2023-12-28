@@ -487,23 +487,56 @@ function rotateMatrix(arr) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(arr) {
-  const arrs = arr;
-  for (let j = 0; j < arrs.length; j += 1) {
-    for (let i = 0; i < arrs.length - 1; i += 1) {
-      if (arrs[i] > arrs[i + 1]) {
-        // const temp = arr[i];
-        // arr[i] = arr[i + 1];
-        // arr[i + 1] = temp;
-        [arrs[i], arrs[i + 1]] = [arrs[i + 1], arrs[i]];
+function sortByAsc(arrs) {
+  const arr = arrs;
+  function findBase(start, end) {
+    const base = arr[start];
+    for (let cursor = start + 1; cursor <= end; cursor += 1) {
+      if (arr[cursor] > base) {
+        return cursor;
+      }
+      if (arr[cursor] < base) {
+        return start;
       }
     }
+    return -1;
   }
+  function breakArray(start, end, base) {
+    let cursorLeft = start;
+    let cursorRight = end;
+    while (cursorLeft < cursorRight) {
+      if (cursorLeft > cursorRight) {
+        break;
+      }
+      const temp = arr[cursorLeft];
+      arr[cursorLeft] = arr[cursorRight];
+      arr[cursorRight] = temp;
+      while (arr[cursorLeft] < base) {
+        cursorLeft += 1;
+      }
+      while (arr[cursorRight] >= base) {
+        cursorRight -= 1;
+      }
+    }
+    return cursorLeft;
+  }
+
+  function quickSort(start, end) {
+    const index = findBase(start, end);
+    if (index !== -1) {
+      const base = arr[index];
+      const cursor = breakArray(start, end, base);
+      quickSort(start, cursor - 1);
+      quickSort(cursor, end);
+    }
+  }
+
+  quickSort(0, arr.length - 1);
 }
 
 // a = [2, 9, 5]
 // a = [2, 9, 5, 9]
-// a = [-2, 9, 5, -3];
+// a = [-2, 9, 5, -3]
 // a = [-72, -69, 85, 37, -5, 47, 92, -41, -89, -32];
 // [  -89,  -72,  -69,  -41,  -32,  -5,  37,  47,  85,  92]
 // sortByAsc(a);
