@@ -488,133 +488,26 @@ function rotateMatrix(arr) {
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
 function sortByAsc(arr) {
-  // function quickSort(arrOther) {
-  //   if (arrOther.length <= 1) {
-  //     return arrOther;
-  //   }
-  //   const base = arrOther[Math.floor(Math.random() * arrOther.length)];
-  //   const arrLess = [];
-  //   const arrMore = [];
-  //   const arrEqual = [];
-  //   for (let i = 0; i < arrOther.length; i += 1) {
-  //     const element = arrOther[i];
-  //     if (element < base) {
-  //       arrLess.push(element);
-  //     } else if (element > base) {
-  //       arrMore.push(element);
-  //     } else {
-  //       arrEqual.push(element);
-  //     }
-  //   }
-  //   return quickSort(arrLess).concat(arrEqual, quickSort(arrMore));
-  // }
-  // arr = [...quickSort(arr)];
-  // console.log('===', arr);
-  // function quickSort(arrSort, start, end) {
-  //   if (start >= end) {return}
-  //   [i, j] = [start, end]
-  //   // let index = Math.floor(Math.random() * (end - start + 1) + start)
-  //   let index = end
-  //   let base =  arrSort[index]
-  //   let n = 0
-  //   while (i <= j) {
-  //     if (n++ > 20) {
-  //       console.log("+++++++++++++++++++")
-  //     }
-  //     while (arrSort[i] < base) {
-  //       i += 1
-  //     }
-  //     while (arrSort[j] > base) {
-  //       j -= 1
-  //     }
-  //     if (i < j) {
-  //       let temp = arrSort[i]
-  //       if (temp === -41) {
-  //         console.log("=====")
-  //       }
-  //       arrSort[i] = arrSort[j]
-  //       arrSort[j] = temp
-  //       // [arrSort[i], arrSort[j]] = [arrSort[j], arrSort[i]]
-  //       console.log(i,j)
-  //       console.log(base, "==", arrSort)
-  //       i += 1
-  //       j -= 1
-  //       // [i, j] = [i + 1, j - 1]
-  //       console.log(i,j)
-  //       console.log("--------------------------")
-  //     }
-  //   }
-  //   quickSort(arrSort, start, j)
-  //   quickSort(arrSort, i, end)
-  // }
-  function findBase (start, end) {
-    base = arr[start]
-    for (cursor = start + 1; cursor <= end; cursor += 1) {
-      if (arr[cursor] > base) {
-        return cursor
-      } else if (arr[cursor] < base) {
-        return start
-      } else {
-        return -1
+  const arrs = arr;
+  for (let j = 0; j < arrs.length; j += 1) {
+    for (let i = 0; i < arrs.length - 1; i += 1) {
+      if (arrs[i] > arrs[i + 1]) {
+        // const temp = arr[i];
+        // arr[i] = arr[i + 1];
+        // arr[i + 1] = temp;
+        [arrs[i], arrs[i + 1]] = [arrs[i + 1], arrs[i]];
       }
     }
-    return -1
   }
-  function breakArray(start, end, base) {
-    let cursorLeft = start
-    let cursorRight = end
-    let n = 0
-    while (true) {
-      n += 1
-      if (n > 20) {
-        console.log("ERROR")
-        break
-      }
-      if (cursorLeft > cursorRight) {break}
-      if (cursorLeft === 0 || cursorRight === 0) {
-        console.log("==", cursorLeft, cursorRight, "==")
-      }
-      temp = arr[cursorLeft]
-      arr[cursorLeft] = arr[cursorRight]
-      arr[cursorRight] = temp
-      console.log("===", Boolean(arr[cursorLeft] < base))
-      while (arr[cursorLeft] < base) {
-        console.log(cursorLeft, "==>")
-        cursorLeft += 1
-        console.log(cursorLeft, "<==")
-      }
-      console.log("---", arr[cursorRight] > base)
-      while (arr[cursorRight] >= base) {
-        console.log(cursorRight, "-->")
-        cursorRight -= 1
-        console.log(cursorRight, "<--")
-      }
-    }
-    return cursorLeft
-  }
-  function quickSort(start, end) {
-    let index = findBase(start, end)
-    if (index !== -1) {
-      base = arr[index]
-      cursor = breakArray(start, end, base)
-      quickSort(start, cursor - 1)
-      quickSort(cursor, end)
-    }
-  }
-
-
-
-
-  quickSort(0, arr.length - 1)
 }
 
 // a = [2, 9, 5]
 // a = [2, 9, 5, 9]
-// a = [-2, 9, 5, -3]
-a = [-72, -69, 85, 37, -5, 47, 92, -41, -89, -32];
+// a = [-2, 9, 5, -3];
+// a = [-72, -69, 85, 37, -5, 47, 92, -41, -89, -32];
 // [  -89,  -72,  -69,  -41,  -32,  -5,  37,  47,  85,  92]
-sortByAsc(a);
-console.log(a);
+// sortByAsc(a);
+// console.log(a);
 
 /**
  * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
