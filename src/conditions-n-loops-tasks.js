@@ -21,9 +21,10 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return String(number).includes('0');
 }
+// console.log(isPositive(10))
 
 /**
  * Returns the maximum of three numbers without using Array and Math classes methods.
@@ -38,9 +39,11 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  const temp = a > b ? a : b;
+  return temp > c ? temp : c;
 }
+// console.log(getMaxNumber(-0.1, 0, 0.2))
 
 /**
  * Checks if a queen can capture a king in the next move on an 8x8 chessboard.
@@ -60,9 +63,39 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  if (queen.x === king.x || queen.y === king.y) {
+    return true;
+  }
+  if ((queen.x - king.x) ** 2 === (queen.y - king.y) ** 2) {
+    return true;
+  }
+  // const delta = queen.x < queen.y ? queen.x : queen.y;
+  // x = queen.x - king.x
+  // y = queen.y - king.y
+  // for (let i = queen.x - delta; i < 8 - delta; i += 1) {
+  //   // for (let j = queen.y - delta; j < 8 - delta; j += 1) {
+  //   console.log(i, queen.y - delta + i, '=>', king);
+  //   if (i === king.x && queen.y - delta + i === king.y) {
+  //     return true;
+  //   }
+  //   // }
+  // }
+  // for (let i = queen.x - delta; i < 8 - delta; i += 1) {
+  //   // for (let j = 8 - 1 - (queen.y - delta); j < 8 - delta; j += 1) {
+  //   console.log(i, 8 - 1 - (queen.y - delta) + i, '=>', king);
+  //   if (i === king.x && 8 - 1 - (queen.y - delta) + i === king.y) {
+  //     return true;
+  //   }
+  //   // }
+  // }
+
+  return false;
 }
+// console.log(canQueenCaptureKing({x: 1, y: 1}, {x: 5, y: 5})) // => true
+// console.log(canQueenCaptureKing({x: 2, y: 1}, {x: 2, y: 8})) // => true
+// console.log(canQueenCaptureKing({x: 1, y: 1}, {x: 2, y: 8})) // => false
+// console.log(canQueenCaptureKing({ x: 6, y: 4 }, { x: 3, y: 7 })); // => false
 
 /**
  * Determines whether a triangle is isosceles based on its side lengths.
@@ -100,9 +133,57 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  const e = num % 10;
+  const d = (num - e) / 10;
+  function getRomanE(numE) {
+    if (numE === 1) {
+      return 'I';
+    }
+    if (numE === 2) {
+      return 'II';
+    }
+    if (numE === 3) {
+      return 'III';
+    }
+    if (numE === 4) {
+      return 'IV';
+    }
+    if (numE === 5) {
+      return 'V';
+    }
+    if (numE === 6) {
+      return 'VI';
+    }
+    if (numE === 7) {
+      return 'VII';
+    }
+    if (numE === 8) {
+      return 'VIII';
+    }
+    if (numE === 9) {
+      return 'IX';
+    }
+    if (numE === 0) {
+      return '';
+    }
+    return '';
+  }
+  function getRomanD(numD) {
+    if (numD === 1) {
+      return 'X';
+    }
+    if (numD === 2) {
+      return 'XX';
+    }
+    if (numD === 3) {
+      return 'XXX';
+    }
+    return '';
+  }
+  return getRomanD(d) + getRomanE(e);
 }
+// console.log(convertToRomanNumerals(26))
 
 /**
  * Converts a number to a string, replacing digits with words.
@@ -119,9 +200,45 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let result = '';
+  function getString(symbol) {
+    switch (symbol) {
+      case '1':
+        return 'one';
+      case '2':
+        return 'two';
+      case '3':
+        return 'three';
+      case '4':
+        return 'four';
+      case '5':
+        return 'five';
+      case '6':
+        return 'six';
+      case '7':
+        return 'seven';
+      case '8':
+        return 'eight';
+      case '9':
+        return 'nine';
+      case '0':
+        return 'zero';
+      case '.':
+      case ',':
+        return 'point';
+      case '-':
+        return 'minus';
+      default:
+        return '+++';
+    }
+  }
+  for (let i = 0; i < numberStr.length; i += 1) {
+    result += i ? ` ${getString(numberStr[i])}` : `${getString(numberStr[i])}`;
+  }
+  return result;
 }
+// console.log(convertNumberToString('1950.2'));
 
 /**
  * Determines whether a string is a palindrome.
@@ -135,9 +252,15 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] !== str[str.length - 1 - i]) {
+      return false;
+    }
+  }
+  return true;
 }
+// console.log(isPalindrome('0123210'))
 
 /**
  * Finds the first occurrence of a letter in a string.
@@ -153,9 +276,15 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) {
+      return i;
+    }
+  }
+  return -1;
 }
+// console.log(getIndexOf('qwerty', 'e'))
 
 /**
  * Checks if a number contains a specific digit.
@@ -172,9 +301,17 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  let temp = num;
+  while (temp) {
+    if (temp % 10 === digit) {
+      return true;
+    }
+    temp = Math.floor(temp / 10);
+  }
+  return false;
 }
+// console.log(isContainNumber(1234560, 2))
 
 /**
  * Finds the index of an element in an array where the sum of elements to the left equals the sum of elements to the right.
@@ -189,9 +326,44 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  if (arr.length < 3) {
+    return -1;
+  }
+  function sumArrLeft(index) {
+    let total = 0;
+    for (let i = 0; i < index; i += 1) {
+      total += arr[i];
+    }
+    return total;
+  }
+  function sumArrRight(index) {
+    let total = 0;
+    for (let i = index + 1; i < arr.length; i += 1) {
+      total += arr[i];
+    }
+    return total;
+  }
+  for (let i = 1; i < arr.length - 1; i += 1) {
+    if (sumArrLeft(i) === sumArrRight(i)) {
+      return i;
+    }
+  }
+  return -1;
 }
+// const utility = require('../extensions/utility');
+// const length = 9;
+//       for (let i = 0; i < 5; i += 1) {
+//         const balanced = utility.getBalancedArrayUtil(length * (i + 1));
+//         console.log(balanced.arr)
+//         console.log(getBalanceIndex(balanced.arr), "=>", balanced.balanceIndex);
+//       }
+// console.log(getBalanceIndex([8, 7, 9, -2, 10, 8, -1, -10, 10])); // 2
+// console.log(getBalanceIndex([10, 1, 3, -8, -6, 4, 10, -3, 9])); // 3
+// console.log(getBalanceIndex([8, 5, 4, 0, 10, 10, 1, 10, 4, -5, -4, 2, -3, 1, -1, 8, -3, 38])); // 13
+// console.log(getBalanceIndex([-9, -10, -7, 9, -8, -10, -1, -9, -3, 3, 3, 4, 6, -4, -1, 2, -5, 8, 8, -5, -10, 2, -8, 10, 6, -3, -32])); // 24
+// console.log(getBalanceIndex([6, 1, 5, 10, 1, -3, 6, 9, -4, -8, 2, 4, -8, 4, 7, 8, -1, 5, 0, 8, 1, -9, 7, 7, -5, 8, 2, 7, -4, -4, -4, -3, -4, 0, -5, -27])); // 2
+// console.log(getBalanceIndex([-2, -9, 0, 6, 6, -3, 1, 7, -6, 10, 6, 1, -7, -4, 7, -6, 2, -1, -6, -1, 0, -6, 3, -2, -2, -5, -5, -8, -2, 0, -6, 3, 4, 8, -6, -5, 9, -10, 9, 0, -8, -1, -10, -5, 4])); // 27
 
 /**
  * Generates a spiral matrix of a given size, filled with numbers in ascending order starting from one.
@@ -214,9 +386,46 @@ function getBalanceIndex(/* arr */) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const arr = Array(size);
+  for (let i = 0; i < arr.length; i += 1) {
+    const subArr = Array(size);
+    for (let j = 0; j < subArr.length; j += 1) {
+      subArr[j] = 0;
+    }
+    arr[i] = subArr;
+  }
+  let deltaX = 0;
+  let deltaY = 1;
+  let x = 0;
+  let y = 0;
+  for (let i = 1; i < size ** 2 + 1; i += 1) {
+    arr[x][y] = i;
+    const nextX = x + deltaX;
+    const nextY = y + deltaY;
+    if (
+      nextX >= 0 &&
+      nextX < size &&
+      nextY >= 0 &&
+      nextY < size &&
+      !arr[nextX][nextY]
+    ) {
+      x = nextX;
+      y = nextY;
+    } else {
+      const temp = -deltaX;
+      deltaX = deltaY;
+      deltaY = temp;
+      x += deltaX;
+      y += deltaY;
+    }
+  }
+  return arr;
 }
+// a = getSpiralMatrix(4);
+// for (element of a) {
+//   console.log(element);
+// }
 
 /**
  * Rotates a matrix by 90 degrees clockwise in place.
@@ -233,9 +442,36 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(arr) {
+  const matrix = arr;
+  const n = matrix.length;
+  for (let i = 0; i < Math.floor(n / 2); i += 1) {
+    for (let j = i; j < n - i - 1; j += 1) {
+      const temp = matrix[i][j];
+      matrix[i][j] = matrix[n - j - 1][i];
+      matrix[n - j - 1][i] = matrix[n - i - 1][n - j - 1];
+      matrix[n - i - 1][n - j - 1] = matrix[j][n - i - 1];
+      matrix[j][n - i - 1] = temp;
+    }
+  }
 }
+// console.log(i,j, "==", matrix[i][j])
+// console.log(n - j - 1 , i, "==", matrix[n - j - 1 ][i])
+// console.log(n - i - 1 , n - j - 1, "==", matrix[n - i - 1][n - j - 1])
+// console.log(j, n - i - 1, "==", matrix[j][n - i - 1])
+
+// matrix = [
+//   [1, 2, 3],
+//   [4, 5, 6],
+//   [7, 8, 9]
+// ]
+// // a = rotateMatrix(matrix);
+// rotateMatrix(matrix);
+
+// // console.log(matrix)
+// for (element of matrix) {
+//   console.log(element);
+// }
 
 /**
  * Sorts an array of numbers in ascending order in place.
@@ -251,9 +487,134 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  // function quickSort(arrOther) {
+  //   if (arrOther.length <= 1) {
+  //     return arrOther;
+  //   }
+  //   const base = arrOther[Math.floor(Math.random() * arrOther.length)];
+  //   const arrLess = [];
+  //   const arrMore = [];
+  //   const arrEqual = [];
+  //   for (let i = 0; i < arrOther.length; i += 1) {
+  //     const element = arrOther[i];
+  //     if (element < base) {
+  //       arrLess.push(element);
+  //     } else if (element > base) {
+  //       arrMore.push(element);
+  //     } else {
+  //       arrEqual.push(element);
+  //     }
+  //   }
+  //   return quickSort(arrLess).concat(arrEqual, quickSort(arrMore));
+  // }
+  // arr = [...quickSort(arr)];
+  // console.log('===', arr);
+  // function quickSort(arrSort, start, end) {
+  //   if (start >= end) {return}
+  //   [i, j] = [start, end]
+  //   // let index = Math.floor(Math.random() * (end - start + 1) + start)
+  //   let index = end
+  //   let base =  arrSort[index]
+  //   let n = 0
+  //   while (i <= j) {
+  //     if (n++ > 20) {
+  //       console.log("+++++++++++++++++++")
+  //     }
+  //     while (arrSort[i] < base) {
+  //       i += 1
+  //     }
+  //     while (arrSort[j] > base) {
+  //       j -= 1
+  //     }
+  //     if (i < j) {
+  //       let temp = arrSort[i]
+  //       if (temp === -41) {
+  //         console.log("=====")
+  //       }
+  //       arrSort[i] = arrSort[j]
+  //       arrSort[j] = temp
+  //       // [arrSort[i], arrSort[j]] = [arrSort[j], arrSort[i]]
+  //       console.log(i,j)
+  //       console.log(base, "==", arrSort)
+  //       i += 1
+  //       j -= 1
+  //       // [i, j] = [i + 1, j - 1]
+  //       console.log(i,j)
+  //       console.log("--------------------------")
+  //     }
+  //   }
+  //   quickSort(arrSort, start, j)
+  //   quickSort(arrSort, i, end)
+  // }
+  function findBase (start, end) {
+    base = arr[start]
+    for (cursor = start + 1; cursor <= end; cursor += 1) {
+      if (arr[cursor] > base) {
+        return cursor
+      } else if (arr[cursor] < base) {
+        return start
+      } else {
+        return -1
+      }
+    }
+    return -1
+  }
+  function breakArray(start, end, base) {
+    let cursorLeft = start
+    let cursorRight = end
+    let n = 0
+    while (true) {
+      n += 1
+      if (n > 20) {
+        console.log("ERROR")
+        break
+      }
+      if (cursorLeft > cursorRight) {break}
+      if (cursorLeft === 0 || cursorRight === 0) {
+        console.log("==", cursorLeft, cursorRight, "==")
+      }
+      temp = arr[cursorLeft]
+      arr[cursorLeft] = arr[cursorRight]
+      arr[cursorRight] = temp
+      console.log("===", Boolean(arr[cursorLeft] < base))
+      while (arr[cursorLeft] < base) {
+        console.log(cursorLeft, "==>")
+        cursorLeft += 1
+        console.log(cursorLeft, "<==")
+      }
+      console.log("---", arr[cursorRight] > base)
+      while (arr[cursorRight] >= base) {
+        console.log(cursorRight, "-->")
+        cursorRight -= 1
+        console.log(cursorRight, "<--")
+      }
+    }
+    return cursorLeft
+  }
+  function quickSort(start, end) {
+    let index = findBase(start, end)
+    if (index !== -1) {
+      base = arr[index]
+      cursor = breakArray(start, end, base)
+      quickSort(start, cursor - 1)
+      quickSort(cursor, end)
+    }
+  }
+
+
+
+
+  quickSort(0, arr.length - 1)
 }
+
+// a = [2, 9, 5]
+// a = [2, 9, 5, 9]
+// a = [-2, 9, 5, -3]
+a = [-72, -69, 85, 37, -5, 47, 92, -41, -89, -32];
+// [  -89,  -72,  -69,  -41,  -32,  -5,  37,  47,  85,  92]
+sortByAsc(a);
+console.log(a);
 
 /**
  * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
