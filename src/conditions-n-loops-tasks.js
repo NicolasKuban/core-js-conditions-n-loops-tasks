@@ -600,7 +600,6 @@ function shuffleChar(str, iterations) {
  */
 function getNearestBigger(number) {
   const arr = [];
-  let i = 0;
   let temp = number;
 
   function nextDigital(arrOther, value) {
@@ -608,27 +607,21 @@ function getNearestBigger(number) {
     for (let j = 0; j < arrOther.length; j += 1) {
       result += 1;
       if (value < arrOther[j]) {
-        result -= 1
+        result -= 1;
         break;
       }
     }
     return result;
   }
   while (temp) {
-    i += 1;
-    if (i > 20) {
-      console.log('ERROR');
-      break;
-    }
     const ostatok = temp % 10;
     temp = Math.floor(temp / 10);
     arr.push(ostatok);
     arr.sort((a, b) => a - b);
     let hasMore = nextDigital(arr, ostatok);
-    console.log('===', hasMore);
     if (hasMore < arr.length) {
       if (arr.length === 2) {
-        hasMore += 1
+        hasMore += 1;
       }
       [arr[0], arr[hasMore - 1]] = [arr[hasMore - 1], arr[0]];
       temp *= 10 ** arr.length;
@@ -638,11 +631,11 @@ function getNearestBigger(number) {
       return temp;
     }
   }
-  console.log(arr);
+  return number;
 }
 
-const a = 12345;
-console.log(getNearestBigger(a));
+// const a = 12345;
+// console.log(getNearestBigger(a));
 
 module.exports = {
   isPositive,
