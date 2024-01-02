@@ -571,22 +571,23 @@ function sortByAsc(arrs) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(str, iterations) {
-  function shuffle(strOther) {
-    let left = strOther[0];
-    let right = '';
-    for (let i = 1; i < strOther.length - 1; i += 2) {
-      right += strOther[i];
-      left += strOther[i + 1];
-    }
-    right = strOther.length % 2 ? right : right + strOther[strOther.length - 1];
-    return left + right;
-  }
-  let result = str;
-  for (let i = 0; i < iterations; i += 1) {
-    result = shuffle(result);
-  }
-  return result;
+function shuffleChar(/* str, iterations */) {
+  throw new Error('Not implemented');
+  // function shuffle(strOther) {
+  //   let left = strOther[0];
+  //   let right = '';
+  //   for (let i = 1; i < strOther.length - 1; i += 2) {
+  //     right += strOther[i];
+  //     left += strOther[i + 1];
+  //   }
+  //   right = strOther.length % 2 ? right : right + strOther[strOther.length - 1];
+  //   return left + right;
+  // }
+  // let result = str;
+  // for (let i = 0; i < iterations; i += 1) {
+  //   result = shuffle(result);
+  // }
+  // return result;
 }
 
 // a = '012345'
@@ -610,35 +611,36 @@ function shuffleChar(str, iterations) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(number) {
-  const arr = [];
-  let temp = number;
+function getNearestBigger(/* number */) {
+  throw new Error('Not implemented');
+  // const arr = [];
+  // let temp = number;
 
-  function nextDigital(arrOther, value) {
-    for (let j = 0; j < arrOther.length; j += 1) {
-      if (value < arrOther[j]) {
-        return j;
-      }
-    }
-    return -1;
-  }
+  // function nextDigital(arrOther, value) {
+  //   for (let j = 0; j < arrOther.length; j += 1) {
+  //     if (value < arrOther[j]) {
+  //       return j;
+  //     }
+  //   }
+  //   return -1;
+  // }
 
-  while (temp) {
-    let ostatok = temp % 10;
-    temp = Math.floor(temp / 10);
-    const hasMore = nextDigital(arr, ostatok);
-    if (hasMore !== -1) {
-      [ostatok, arr[hasMore]] = [arr[hasMore], ostatok];
-      temp = temp * 10 ** (arr.length + 1) + ostatok * 10 ** arr.length;
-      for (let j = 0; j < arr.length; j += 1) {
-        temp += arr[j] * 10 ** (arr.length - 1 - j);
-      }
-      return temp;
-    }
-    arr.push(ostatok);
-    arr.sort((a, b) => a - b);
-  }
-  return number;
+  // while (temp) {
+  //   let ostatok = temp % 10;
+  //   temp = Math.floor(temp / 10);
+  //   const hasMore = nextDigital(arr, ostatok);
+  //   if (hasMore !== -1) {
+  //     [ostatok, arr[hasMore]] = [arr[hasMore], ostatok];
+  //     temp = temp * 10 ** (arr.length + 1) + ostatok * 10 ** arr.length;
+  //     for (let j = 0; j < arr.length; j += 1) {
+  //       temp += arr[j] * 10 ** (arr.length - 1 - j);
+  //     }
+  //     return temp;
+  //   }
+  //   arr.push(ostatok);
+  //   arr.sort((a, b) => a - b);
+  // }
+  // return number;
 }
 
 // const a = 12345;
