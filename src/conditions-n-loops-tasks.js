@@ -70,26 +70,6 @@ function canQueenCaptureKing(queen, king) {
   if ((queen.x - king.x) ** 2 === (queen.y - king.y) ** 2) {
     return true;
   }
-  // const delta = queen.x < queen.y ? queen.x : queen.y;
-  // x = queen.x - king.x
-  // y = queen.y - king.y
-  // for (let i = queen.x - delta; i < 8 - delta; i += 1) {
-  //   // for (let j = queen.y - delta; j < 8 - delta; j += 1) {
-  //   console.log(i, queen.y - delta + i, '=>', king);
-  //   if (i === king.x && queen.y - delta + i === king.y) {
-  //     return true;
-  //   }
-  //   // }
-  // }
-  // for (let i = queen.x - delta; i < 8 - delta; i += 1) {
-  //   // for (let j = 8 - 1 - (queen.y - delta); j < 8 - delta; j += 1) {
-  //   console.log(i, 8 - 1 - (queen.y - delta) + i, '=>', king);
-  //   if (i === king.x && 8 - 1 - (queen.y - delta) + i === king.y) {
-  //     return true;
-  //   }
-  //   // }
-  // }
-
   return false;
 }
 // console.log(canQueenCaptureKing({x: 1, y: 1}, {x: 5, y: 5})) // => true
@@ -212,44 +192,43 @@ function convertToRomanNumerals(num) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
-  // let result = '';
-  // function getString(symbol) {
-  //   switch (symbol) {
-  //     case '1':
-  //       return 'one';
-  //     case '2':
-  //       return 'two';
-  //     case '3':
-  //       return 'three';
-  //     case '4':
-  //       return 'four';
-  //     case '5':
-  //       return 'five';
-  //     case '6':
-  //       return 'six';
-  //     case '7':
-  //       return 'seven';
-  //     case '8':
-  //       return 'eight';
-  //     case '9':
-  //       return 'nine';
-  //     case '0':
-  //       return 'zero';
-  //     case '.':
-  //     case ',':
-  //       return 'point';
-  //     case '-':
-  //       return 'minus';
-  //     default:
-  //       return '+++';
-  //   }
-  // }
-  // for (let i = 0; i < numberStr.length; i += 1) {
-  //   result += i ? ` ${getString(numberStr[i])}` : `${getString(numberStr[i])}`;
-  // }
-  // return result;
+function convertNumberToString(numberStr) {
+  let result = '';
+  function getString(symbol) {
+    switch (symbol) {
+      case '1':
+        return 'one';
+      case '2':
+        return 'two';
+      case '3':
+        return 'three';
+      case '4':
+        return 'four';
+      case '5':
+        return 'five';
+      case '6':
+        return 'six';
+      case '7':
+        return 'seven';
+      case '8':
+        return 'eight';
+      case '9':
+        return 'nine';
+      case '0':
+        return 'zero';
+      case '.':
+      case ',':
+        return 'point';
+      case '-':
+        return 'minus';
+      default:
+        return '+++';
+    }
+  }
+  for (let i = 0; i < numberStr.length; i += 1) {
+    result += i ? ` ${getString(numberStr[i])}` : `${getString(numberStr[i])}`;
+  }
+  return result;
 }
 // console.log(convertNumberToString('1950.2'));
 
@@ -500,52 +479,51 @@ function rotateMatrix(arr) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arrs */) {
-  throw new Error('Not implemented');
-  // const arr = arrs;
-  // function findBase(start, end) {
-  //   const base = arr[start];
-  //   for (let cursor = start + 1; cursor <= end; cursor += 1) {
-  //     if (arr[cursor] > base) {
-  //       return cursor;
-  //     }
-  //     if (arr[cursor] < base) {
-  //       return start;
-  //     }
-  //   }
-  //   return -1;
-  // }
-  // function breakArray(start, end, base) {
-  //   let cursorLeft = start;
-  //   let cursorRight = end;
-  //   while (cursorLeft < cursorRight) {
-  //     if (cursorLeft > cursorRight) {
-  //       break;
-  //     }
-  //     const temp = arr[cursorLeft];
-  //     arr[cursorLeft] = arr[cursorRight];
-  //     arr[cursorRight] = temp;
-  //     while (arr[cursorLeft] < base) {
-  //       cursorLeft += 1;
-  //     }
-  //     while (arr[cursorRight] >= base) {
-  //       cursorRight -= 1;
-  //     }
-  //   }
-  //   return cursorLeft;
-  // }
+function sortByAsc(arrs) {
+  const arr = arrs;
+  function findBase(start, end) {
+    const base = arr[start];
+    for (let cursor = start + 1; cursor <= end; cursor += 1) {
+      if (arr[cursor] > base) {
+        return cursor;
+      }
+      if (arr[cursor] < base) {
+        return start;
+      }
+    }
+    return -1;
+  }
+  function breakArray(start, end, base) {
+    let cursorLeft = start;
+    let cursorRight = end;
+    while (cursorLeft < cursorRight) {
+      if (cursorLeft > cursorRight) {
+        break;
+      }
+      const temp = arr[cursorLeft];
+      arr[cursorLeft] = arr[cursorRight];
+      arr[cursorRight] = temp;
+      while (arr[cursorLeft] < base) {
+        cursorLeft += 1;
+      }
+      while (arr[cursorRight] >= base) {
+        cursorRight -= 1;
+      }
+    }
+    return cursorLeft;
+  }
 
-  // function quickSort(start, end) {
-  //   const index = findBase(start, end);
-  //   if (index !== -1) {
-  //     const base = arr[index];
-  //     const cursor = breakArray(start, end, base);
-  //     quickSort(start, cursor - 1);
-  //     quickSort(cursor, end);
-  //   }
-  // }
+  function quickSort(start, end) {
+    const index = findBase(start, end);
+    if (index !== -1) {
+      const base = arr[index];
+      const cursor = breakArray(start, end, base);
+      quickSort(start, cursor - 1);
+      quickSort(cursor, end);
+    }
+  }
 
-  // quickSort(0, arr.length - 1);
+  quickSort(0, arr.length - 1);
 }
 
 // a = [2, 9, 5]
@@ -613,36 +591,35 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
-  // const arr = [];
-  // let temp = number;
+function getNearestBigger(number) {
+  const arr = [];
+  let temp = number;
 
-  // function nextDigital(arrOther, value) {
-  //   for (let j = 0; j < arrOther.length; j += 1) {
-  //     if (value < arrOther[j]) {
-  //       return j;
-  //     }
-  //   }
-  //   return -1;
-  // }
+  function nextDigital(arrOther, value) {
+    for (let j = 0; j < arrOther.length; j += 1) {
+      if (value < arrOther[j]) {
+        return j;
+      }
+    }
+    return -1;
+  }
 
-  // while (temp) {
-  //   let ostatok = temp % 10;
-  //   temp = Math.floor(temp / 10);
-  //   const hasMore = nextDigital(arr, ostatok);
-  //   if (hasMore !== -1) {
-  //     [ostatok, arr[hasMore]] = [arr[hasMore], ostatok];
-  //     temp = temp * 10 ** (arr.length + 1) + ostatok * 10 ** arr.length;
-  //     for (let j = 0; j < arr.length; j += 1) {
-  //       temp += arr[j] * 10 ** (arr.length - 1 - j);
-  //     }
-  //     return temp;
-  //   }
-  //   arr.push(ostatok);
-  //   arr.sort((a, b) => a - b);
-  // }
-  // return number;
+  while (temp) {
+    let ostatok = temp % 10;
+    temp = Math.floor(temp / 10);
+    const hasMore = nextDigital(arr, ostatok);
+    if (hasMore !== -1) {
+      [ostatok, arr[hasMore]] = [arr[hasMore], ostatok];
+      temp = temp * 10 ** (arr.length + 1) + ostatok * 10 ** arr.length;
+      for (let j = 0; j < arr.length; j += 1) {
+        temp += arr[j] * 10 ** (arr.length - 1 - j);
+      }
+      return temp;
+    }
+    arr.push(ostatok);
+    arr.sort((a, b) => a - b);
+  }
+  return number;
 }
 
 // const a = 12345;
