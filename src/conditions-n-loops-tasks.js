@@ -551,28 +551,39 @@ function sortByAsc(arrs) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
-  // function shuffle(strOther) {
-  //   let left = strOther[0];
-  //   let right = '';
-  //   for (let i = 1; i < strOther.length - 1; i += 2) {
-  //     right += strOther[i];
-  //     left += strOther[i + 1];
-  //   }
-  //   right = strOther.length % 2 ? right : right + strOther[strOther.length - 1];
-  //   return left + right;
-  // }
-  // let result = str;
-  // for (let i = 0; i < iterations; i += 1) {
-  //   result = shuffle(result);
-  // }
-  // return result;
+function shuffleChar(str, iterations) {
+  const cash = [str];
+  let cashLength = 0;
+  function shuffle(strOther, index) {
+    if (cashLength) {
+      return cash[(index + 1) % cashLength];
+    }
+    let strLeft = '';
+    let strRight = '';
+    for (let n = 0; n < strOther.length; n += 1) {
+      if (n % 2) {
+        strRight += strOther[n];
+      } else {
+        strLeft += strOther[n];
+      }
+    }
+    if (cash[0] === strLeft + strRight) {
+      cashLength = index + 1;
+      return cash[0];
+    }
+    cash[index + 1] = strLeft + strRight;
+    return cash[index + 1];
+  }
+  let result = str;
+  for (let i = 0; i < iterations; i += 1) {
+    result = shuffle(result, i);
+  }
+  return result;
 }
 
-// a = '012345'
+// a = '0123456789abc';
 // a = 'qwerty'
-// console.log(shuffleChar(a, 2))
+// console.log(shuffleChar(a, 15));
 
 /**
  * Returns the nearest largest integer consisting of the digits of the given positive integer.
