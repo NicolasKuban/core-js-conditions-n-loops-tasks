@@ -212,43 +212,44 @@ function convertToRomanNumerals(num) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(numberStr) {
-  let result = '';
-  function getString(symbol) {
-    switch (symbol) {
-      case '1':
-        return 'one';
-      case '2':
-        return 'two';
-      case '3':
-        return 'three';
-      case '4':
-        return 'four';
-      case '5':
-        return 'five';
-      case '6':
-        return 'six';
-      case '7':
-        return 'seven';
-      case '8':
-        return 'eight';
-      case '9':
-        return 'nine';
-      case '0':
-        return 'zero';
-      case '.':
-      case ',':
-        return 'point';
-      case '-':
-        return 'minus';
-      default:
-        return '+++';
-    }
-  }
-  for (let i = 0; i < numberStr.length; i += 1) {
-    result += i ? ` ${getString(numberStr[i])}` : `${getString(numberStr[i])}`;
-  }
-  return result;
+function convertNumberToString(/* numberStr */) {
+  throw new Error('Not implemented');
+  // let result = '';
+  // function getString(symbol) {
+  //   switch (symbol) {
+  //     case '1':
+  //       return 'one';
+  //     case '2':
+  //       return 'two';
+  //     case '3':
+  //       return 'three';
+  //     case '4':
+  //       return 'four';
+  //     case '5':
+  //       return 'five';
+  //     case '6':
+  //       return 'six';
+  //     case '7':
+  //       return 'seven';
+  //     case '8':
+  //       return 'eight';
+  //     case '9':
+  //       return 'nine';
+  //     case '0':
+  //       return 'zero';
+  //     case '.':
+  //     case ',':
+  //       return 'point';
+  //     case '-':
+  //       return 'minus';
+  //     default:
+  //       return '+++';
+  //   }
+  // }
+  // for (let i = 0; i < numberStr.length; i += 1) {
+  //   result += i ? ` ${getString(numberStr[i])}` : `${getString(numberStr[i])}`;
+  // }
+  // return result;
 }
 // console.log(convertNumberToString('1950.2'));
 
@@ -499,51 +500,52 @@ function rotateMatrix(arr) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(arrs) {
-  const arr = arrs;
-  function findBase(start, end) {
-    const base = arr[start];
-    for (let cursor = start + 1; cursor <= end; cursor += 1) {
-      if (arr[cursor] > base) {
-        return cursor;
-      }
-      if (arr[cursor] < base) {
-        return start;
-      }
-    }
-    return -1;
-  }
-  function breakArray(start, end, base) {
-    let cursorLeft = start;
-    let cursorRight = end;
-    while (cursorLeft < cursorRight) {
-      if (cursorLeft > cursorRight) {
-        break;
-      }
-      const temp = arr[cursorLeft];
-      arr[cursorLeft] = arr[cursorRight];
-      arr[cursorRight] = temp;
-      while (arr[cursorLeft] < base) {
-        cursorLeft += 1;
-      }
-      while (arr[cursorRight] >= base) {
-        cursorRight -= 1;
-      }
-    }
-    return cursorLeft;
-  }
+function sortByAsc(/* arrs */) {
+  throw new Error('Not implemented');
+  // const arr = arrs;
+  // function findBase(start, end) {
+  //   const base = arr[start];
+  //   for (let cursor = start + 1; cursor <= end; cursor += 1) {
+  //     if (arr[cursor] > base) {
+  //       return cursor;
+  //     }
+  //     if (arr[cursor] < base) {
+  //       return start;
+  //     }
+  //   }
+  //   return -1;
+  // }
+  // function breakArray(start, end, base) {
+  //   let cursorLeft = start;
+  //   let cursorRight = end;
+  //   while (cursorLeft < cursorRight) {
+  //     if (cursorLeft > cursorRight) {
+  //       break;
+  //     }
+  //     const temp = arr[cursorLeft];
+  //     arr[cursorLeft] = arr[cursorRight];
+  //     arr[cursorRight] = temp;
+  //     while (arr[cursorLeft] < base) {
+  //       cursorLeft += 1;
+  //     }
+  //     while (arr[cursorRight] >= base) {
+  //       cursorRight -= 1;
+  //     }
+  //   }
+  //   return cursorLeft;
+  // }
 
-  function quickSort(start, end) {
-    const index = findBase(start, end);
-    if (index !== -1) {
-      const base = arr[index];
-      const cursor = breakArray(start, end, base);
-      quickSort(start, cursor - 1);
-      quickSort(cursor, end);
-    }
-  }
+  // function quickSort(start, end) {
+  //   const index = findBase(start, end);
+  //   if (index !== -1) {
+  //     const base = arr[index];
+  //     const cursor = breakArray(start, end, base);
+  //     quickSort(start, cursor - 1);
+  //     quickSort(cursor, end);
+  //   }
+  // }
 
-  quickSort(0, arr.length - 1);
+  // quickSort(0, arr.length - 1);
 }
 
 // a = [2, 9, 5]
