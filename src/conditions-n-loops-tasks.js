@@ -115,8 +115,20 @@ function canQueenCaptureKing(queen, king) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (!(a && b && c)) {
+    return false;
+  }
+  if (a + b > c && a === b) {
+    return true;
+  }
+  if (c + b > a && c === b) {
+    return true;
+  }
+  if (a + c > b && a === c) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -603,38 +615,35 @@ function getNearestBigger(number) {
   let temp = number;
 
   function nextDigital(arrOther, value) {
-    let result = 0;
     for (let j = 0; j < arrOther.length; j += 1) {
-      result += 1;
       if (value < arrOther[j]) {
-        result -= 1;
-        break;
+        return j;
       }
     }
-    return result;
+    return -1;
   }
+
   while (temp) {
-    const ostatok = temp % 10;
+    let ostatok = temp % 10;
     temp = Math.floor(temp / 10);
-    arr.push(ostatok);
-    arr.sort((a, b) => a - b);
-    let hasMore = nextDigital(arr, ostatok);
-    if (hasMore < arr.length) {
-      if (arr.length === 2) {
-        hasMore += 1;
-      }
-      [arr[0], arr[hasMore - 1]] = [arr[hasMore - 1], arr[0]];
-      temp *= 10 ** arr.length;
+    const hasMore = nextDigital(arr, ostatok);
+    if (hasMore !== -1) {
+      [ostatok, arr[hasMore]] = [arr[hasMore], ostatok];
+      temp = temp * 10 ** (arr.length + 1) + ostatok * 10 ** arr.length;
       for (let j = 0; j < arr.length; j += 1) {
         temp += arr[j] * 10 ** (arr.length - 1 - j);
       }
       return temp;
     }
+    arr.push(ostatok);
+    arr.sort((a, b) => a - b);
   }
   return number;
 }
 
 // const a = 12345;
+// a = 123450
+// a = 90822
 // console.log(getNearestBigger(a));
 
 module.exports = {
